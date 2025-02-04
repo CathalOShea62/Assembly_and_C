@@ -1,0 +1,47 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 31/01/2025 09:44:17
+
+00001000                             1      ORG    $1000
+00001000                             2  START:                  
+00001000                             3      ;Move health to memory location $3000
+00001000  11FC 0064 3000             4      MOVE.B      #100, $3000
+00001006                             5      
+00001006                             6      ;Move location of player into data register
+00001006                             7      ;X first byte 0 to 15
+00001006                             8      ;Y second byte 0 to 15
+00001006  143C 0012                  9      MOVE.B      #$12, D2
+0000100A                            10      
+0000100A                            11      ;Move location of NPC into data register
+0000100A                            12      ;X first byte 0 to 15
+0000100A                            13      ;Y second byte 0 to 15
+0000100A  163C 0022                 14      MOVE.B      #$22, D3
+0000100E                            15  
+0000100E                            16      ;Bitwise AND D2 and D3
+0000100E                            17      ;Whats new location of player
+0000100E  C602                      18      AND.B D2,D3
+00001010                            19  
+00001010                            20      ;Load memory address $3000 into
+00001010                            21      ;Address register A1
+00001010  43F8 0300                 22      LEA        $300, A1
+00001014                            23  
+00001014                            24      ; Hit by NPC
+00001014                            25      ; Non player character
+00001014  0411 0014                 26      SUB.B       #20, (A1)
+00001018                            27      
+00001018                            28      ;Pickup Health Found
+00001018  0611 000A                 29      ADD.B       #10, (A1)    
+0000101C  FFFF FFFF                 30      SIMHALT             ; halt simulator
+00001020                            31  
+00001020                            32  * Put variables and constants here
+00001020                            33  
+00001020                            34      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+START               1000
