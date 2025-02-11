@@ -1,0 +1,57 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 04/02/2025 12:15:57
+
+00001000                             1      ORG    $1000        ; Start of the program memory
+00001000                             2  
+00001000                             3  
+00001000                             4  START:
+00001000                             5      ; Initialize player health (100%) at $3000
+00001000  11FC 0064 3000             6      MOVE.B  #$64, $3000          ; Player Health = 100% (Hex $64)
+00001006                             7  
+00001006                             8      ; Load player health address into Address Register A1
+00001006  43F8 3000                  9      LEA     $3000, A1
+0000100A                            10  
+0000100A                            11      ; Player takes damage
+0000100A  6100 000A                 12      BSR     TAKING_DAMAGE
+0000100E                            13  
+0000100E                            14      ; Health pickup (player gets more health)
+0000100E  6100 000E                 15      BSR     HEALTH_PICKUP
+00001012                            16  
+00001012                            17      ; Game Over: End the game
+00001012  6000 0010                 18      BRA     GAME_END
+00001016                            19  
+00001016                            20  TAKING_DAMAGE:
+00001016                            21      ; Player hit by NPC: subtract 20 from health
+00001016  0411 0014                 22      SUB.B   #$14, (A1)           ; Subtract 20 (Hex $14)
+0000101A  6000 0008                 23      BRA     GAME_END             ; Go to game end after taking damage
+0000101E                            24  
+0000101E                            25  HEALTH_PICKUP:
+0000101E                            26      ; Player picks up health: add 10 to health
+0000101E  0611 000A                 27      ADD.B   #$0A, (A1)           ; Add 10 (Hex $0A)
+00001022  4E75                      28      RTS                          ; Return from subroutine
+00001024                            29  
+00001024                            30  GAME_END:
+00001024                            31      ; Game Over: clear player health
+00001024  12BC 0000                 32      MOVE.B #$00, (A1)
+00001028                            33  
+00001028  FFFF FFFF                 34      SIMHALT                      ; Halt simulator
+0000102C                            35  
+0000102C                            36  * Variables and constants
+0000102C                            37          
+0000102C                            38  
+0000102C                            39  
+0000102C                            40  
+0000102C                            41      END    START
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+GAME_END            1024
+HEALTH_PICKUP       101E
+START               1000
+TAKING_DAMAGE       1016

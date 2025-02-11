@@ -1,0 +1,53 @@
+    1  pwd
+    2  mkdir mydir
+    3  ls
+    4  cd mydir/
+    5  pwd
+    6  nano testfile
+    7  cd
+    8  ls
+    9  clear
+   10  ls
+   11  mkdir projects
+   12  cd projects/
+   13  ls
+   14  pwd
+   15  git
+   16  clear
+   17  git clone htps://github.com/MuddyGames/Assembly_and_C_2026.git
+   18  git clone https://github.com/MuddyGames/Assembly_and_C_2026.git
+   19  ls
+   20  cd Assembly_and_C_2026/
+   21  git clone https://github.com/CathalOshea62/Assembly_and_C_2026.git
+   22  cd c:
+   23  ls
+   24  cd projcts/
+   25  ls
+   26  cd
+   27  ls
+   28  cd projects/
+   29  ls
+   30  git clone https://github.com/CathalOShea62/Assembly_and_C.git
+   31  ls
+   32  nano firstfile.txt
+   33  ls
+   34  cd ..
+   35  git status
+   36  cd Assembly_and_C/
+   37  ls
+   38  cd projects/
+   39  ls
+   40  cd Assembly_and_C
+   41  mkdir PRACTICAL_01
+   42  ls
+   43  cd PRACTIAL_01/
+   44  cd PRACTIAL_01/
+   45  LS
+   46  cd PRACTICAL_01/
+   47  nano firstfile.txt
+   48  cd ..
+   49  git status
+   50  git add .
+   51  git commit -am "Practical 01"
+   52  git push
+   53  history > commands.txt

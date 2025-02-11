@@ -1,0 +1,53 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 04/02/2025 12:26:55
+
+00001000                             1      ORG    $1000
+00001000                             2  START:                  ; first instruction of program
+00001000                             3  
+00001000                             4      ; Move Health to Memory Location $3000
+00001000  11FC 0064 3000             5      MOVE.B  #100, $3000
+00001006                             6      
+00001006                             7      ; Load Memory Address $3000 into
+00001006                             8      ; Address Register A1
+00001006  43F8 3000                  9      LEA     $3000, A1
+0000100A                            10      
+0000100A                            11      ; Branch to TAKING DAMAGE
+0000100A  6100 000A                 12      BSR     TAKING_DAMAGE
+0000100E                            13  
+0000100E                            14  BACK_IN_THE_GAME:
+0000100E                            15      ; Lets help this player out
+0000100E  6100 000C                 16      BSR     HEALTH_PICKUP
+00001012  6000 000E                 17      BRA    GAME_END
+00001016                            18      
+00001016                            19  TAKING_DAMAGE:
+00001016                            20      ; Hit by NPC
+00001016  0411 0014                 21      SUB.B   #20, (A1)
+0000101A  61F2                      22      BSR     BACK_IN_THE_GAME
+0000101C                            23      
+0000101C                            24  HEALTH_PICKUP:
+0000101C                            25      ; Pickup health found
+0000101C  0611 000A                 26      ADD.B   #10, (A1)
+00001020  4E75                      27      RTS
+00001022                            28      
+00001022                            29  GAME_END:
+00001022                            30      ; Game over
+00001022  12BC 0000                 31      MOVE.B #$00, (A1)
+00001026  FFFF FFFF                 32      SIMHALT             ; halt simulator
+0000102A                            33  
+0000102A                            34  * Put variables and constants here
+0000102A                            35  
+0000102A                            36      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+BACK_IN_THE_GAME    100E
+GAME_END            1022
+HEALTH_PICKUP       101C
+START               1000
+TAKING_DAMAGE       1016

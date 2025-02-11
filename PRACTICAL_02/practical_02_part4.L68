@@ -1,0 +1,45 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 21/01/2025 12:32:37
+
+00001000                             1      ORG    $1000
+00001000                             2  START:                  ; first instruction of program
+00001000                             3  
+00001000  223C 000007D0              4      MOVE.L #2000, D1
+00001006  7404                       5      MOVE.L #%100, D2
+00001008  7664                       6      MOVE.L #100,  D3
+0000100A                             7      
+0000100A  11F8 2000 3010             8      MOVE.B $2000, $3010
+00001010  11FC 0040 3020             9      MOVE.B #64,   $3020
+00001016  11FC 0010 3000            10      MOVE.B #$10, $3000
+0000101C                            11      
+0000101C  31F8 2000 3010            12      MOVE.W $2000, $3010
+00001022  31FC 0004 3000            13      MOVE.W #%100, $3000
+00001028  31FC 0040 3020            14      MOVE.W #64,   $3020
+0000102E                            15  
+0000102E  21C1 3000                 16      MOVE.L D1,    $3000
+00001032  21C2 3010                 17      MOVE.L D2,    $3010
+00001036  21C3 3020                 18      MOVE.L D3,    $3020
+0000103A                            19      
+0000103A  323C 03E8                 20      MOVE.W #1000, D1
+0000103E  343C 0040                 21      MOVE.W #64,   D2
+00001042  3638 0300                 22      MOVE.W $300,  D3 
+00001046                            23  
+00001046  2401                      24      MOVE.L D1, D2
+00001048  2602                      25      MOVE.L D2, D3
+0000104A  2003                      26      MOVE.L D3, D0  
+0000104C                            27  
+0000104C  FFFF FFFF                 28      SIMHALT             ; halt simulator
+00001050                            29  
+00001050                            30  * Put variables and constants here
+00001050                            31  
+00001050                            32      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+START               1000
