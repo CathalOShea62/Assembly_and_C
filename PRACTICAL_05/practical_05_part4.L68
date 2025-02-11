@@ -1,0 +1,101 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 11/02/2025 12:52:10
+
+Line 1 ERROR: Invalid opcode
+00000000                             1  ORG $1000   ; Start of the program
+00000000                             2  
+00000000                             3  ; Initialize memory locations for player position, health, enemy positions, etc.
+00000000= 0A                         4  PLAYER_X:       DC.B 10        ; Initial position of the player
+00000001= 64                         5  PLAYER_HEALTH:  DC.B 100       ; Player health
+00000002= 0A                         6  DAMAGE:         DC.B 10        ; Damage for collisions
+00000004= 00000014 0000000A ...      7  ENEMY_POSITIONS:DC.L 20, 10, 40, 50 ; Positions of the enemies (array)
+00000014= 04                         8  ENEMY_COUNT:    DC.B 4         ; Number of enemies (size of ENEMY_POSITIONS array)
+00000015                             9  
+00000015                            10  ; Message strings
+00000015= 47 61 6D 65 20 4C ...     11  MSG_GAME_LOOP:  DC.B 'Game Loop...', 0
+00000022= 47 61 6D 65 20 4F ...     12  MSG_GAME_OVER:  DC.B 'Game Over!', 0
+0000002D= 54 61 6B 69 6E 67 ...     13  MSG_DAMAGE:     DC.B 'Taking Damage...', 0
+0000003E                            14  
+0000003E                            15  ; Program starts here
+0000003E                            16  START:
+0000003E                            17      GAME_LOOP:
+0000003E  43F8 0015                 18          LEA MSG_GAME_LOOP, A1     ; Load message for game loop
+00000042  103C 000D                 19          MOVE.B #13, D0            ; Carriage return for output
+00000046  4E4F                      20          TRAP #15                  ; Output message (TRAP #15 is system call)
+00000048                            21          
+00000048                            22          ; Check if player health is 0
+00000048  0C38 0000 0001            23          CMP.B #0, PLAYER_HEALTH
+0000004E  6700 0034                 24          BEQ GAME_OVER             ; If player health is 0, go to game over
+00000052                            25          
+00000052                            26          ; Update game state (move player, etc.)
+00000052  6100 0008                 27          BSR UPDATE                ; Call update subroutine
+00000056  6100 000A                 28          BSR COLLISION_CHECK       ; Check for collisions
+0000005A                            29          
+0000005A  60E2                      30          BRA GAME_LOOP             ; Repeat game loop
+0000005C                            31  
+0000005C                            32  ; Subroutine to update player position
+0000005C                            33  UPDATE:
+0000005C  5238 0000                 34          ADD.B #1, PLAYER_X        ; Move player (increment position)
+00000060  4E75                      35          RTS
+00000062                            36  
+00000062                            37  ; Subroutine to check for collisions with enemies
+00000062                            38  COLLISION_CHECK:
+00000062  47F8 0004                 39          LEA ENEMY_POSITIONS, A3   ; Load the address of the enemy positions array
+00000066  103C 0000                 40          MOVE.B #0, D0             ; Initialize the counter (D0) to 0
+0000006A                            41          
+0000006A                            42          ; Loop through enemy positions
+0000006A                            43          COUNT_ENEMIES:
+Line 44 ERROR: Invalid addressing mode
+0000006A                            44              CMP.B PLAYER_X, (A3)  ; Compare player position with current enemy position
+0000006A  6700 000C                 45              BEQ COLLISION         ; If they match, there's a collision
+0000006E  5200                      46              ADDQ.B #1, D0         ; Increment enemy counter
+00000070  528B                      47              ADDQ.L #1, A3         ; Move to the next enemy position
+00000072  4A00                      48              TST.B D0              ; Test if we have checked all enemies
+00000074  66F4                      49              BNE COUNT_ENEMIES     ; If not, continue checking
+00000076                            50  
+00000076  4E75                      51          RTS
+00000078                            52  
+00000078                            53  ; Handle collision and reduce player health
+00000078                            54  COLLISION:
+Line 55 ERROR: Invalid addressing mode
+00000078                            55          SUB.B DAMAGE, PLAYER_HEALTH  ; Subtract damage from player health
+00000078  43F8 002D                 56          LEA MSG_DAMAGE, A1           ; Load the damage message
+0000007C  103C 000D                 57          MOVE.B #13, D0              ; Carriage return for output
+00000080  4E4F                      58          TRAP #15                    ; Output damage message
+00000082  4E75                      59          RTS
+00000084                            60  
+00000084                            61  ; Game over routine
+00000084                            62  GAME_OVER:
+00000084  43F8 0022                 63          LEA MSG_GAME_OVER, A1       ; Load game over message
+00000088  103C 000D                 64          MOVE.B #13, D0              ; Carriage return for output
+0000008C  4E4F                      65          TRAP #15                    ; Output game over message
+0000008E  FFFF FFFF                 66          SIMHALT                     ; Stop the simulation
+00000092                            67  
+Line 68 ERROR: Invalid opcode
+00000092                            68  END START
+00000092                            69  
+Line 70 WARNING: END directive missing, starting address not set
+
+4 errors detected
+1 warning generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+COLLISION           78
+COLLISION_CHECK     62
+COUNT_ENEMIES       6A
+DAMAGE              2
+ENEMY_COUNT         14
+ENEMY_POSITIONS     4
+GAME_LOOP           3E
+GAME_OVER           84
+MSG_DAMAGE          2D
+MSG_GAME_LOOP       15
+MSG_GAME_OVER       22
+PLAYER_HEALTH       1
+PLAYER_X            0
+START               3E
+UPDATE              5C

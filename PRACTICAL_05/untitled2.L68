@@ -1,51 +1,26 @@
 00001000 Starting Address
 Assembler used: EASy68K Editor/Assembler v5.16.01
-Created On: 11/02/2025 11:46:46
+Created On: 11/02/2025 12:44:34
 
 00001000                             1      ORG    $1000
-00001000                             2  START:                  ; first instruction of program
-00001000                             3  
-00001000                             4     
-00001000                             5          START:
-00001000  43F9 0000102A              6          LEA PLAYER_POSITION, A1 
-00001006  45F9 0000102C              7          LEA ENEMY_POSITION, A2
-0000100C                             8  
-0000100C  123C 0032                  9          MOVE.B #50, D1
-00001010  143C 0000                 10          MOVE.B #0, D2
-00001014                            11  
-00001014                            12  
-00001014                            13          COLLISION_CHECK:
-00001014  B242                      14          CMP D2, D1
-00001016  6D00 0006                 15          BLT NEXT_MOVE 
-0000101A  6700 0006                 16          BEQ COLLISION
-0000101E                            17  
-0000101E                            18          NEXT_MOVE:
-0000101E  5202                      19          ADD.B #1, D2
-00001020  60F2                      20          BRA COLLISION_CHECK
-00001022                            21  
-00001022                            22          COLLISION:
-00001022  6000 0002                 23          BRA GAME_OVER
-00001026                            24  
-00001026                            25          GAME_OVER:
-00001026  FFFF FFFF                 26          SIMHALT
-0000102A                            27  
-0000102A                            28  
-0000102A= 0A 0F                     29          PLAYER_POSITION: DC.B 10, 15 
-0000102C= 32 37                     30          ENEMY_POSITION: DC.B 50, 55
-0000102E                            31  
-0000102E                            32      END    START
+00001000                             2     
+Line 3 ERROR: Invalid opcode
+00001000                             3      DAMAGE                  EQU 10
+00001000                             4      
+00001000                             5      START:
+Line 6 ERROR: Undefined symbol
+00001000  45F9 004DBD16              6          LEA     PLAYER_X, A2
+00001006  FFFF FFFF                  7      SIMHALT             ; halt simulator
+0000100A                             8  
+0000100A                             9  * Put variables and constants here
+0000100A                            10  
+0000100A                            11      END    START        ; last line of source
 
-No errors detected
+2 errors detected
 No warnings generated
 
 
 SYMBOL TABLE INFORMATION
 Symbol-name         Value
 -------------------------
-COLLISION           1022
-COLLISION_CHECK     1014
-ENEMY_POSITION      102C
-GAME_OVER           1026
-NEXT_MOVE           101E
-PLAYER_POSITION     102A
 START               1000
