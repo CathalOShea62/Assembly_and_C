@@ -2,6 +2,7 @@
 START:                  ; first instruction of program
 
     MOVE.L #2000, D1
+<<<<<<< HEAD
     MOVE.L #%100, D2
     MOVE.L #100,  D3
     
@@ -24,6 +25,10 @@ START:                  ; first instruction of program
     MOVE.L D1, D2
     MOVE.L D2, D3
     MOVE.L D3, D0  
+=======
+    MOVE.B #%100, D2
+    MOVE.W #100,  D3
+>>>>>>> 4ef804491a6f008d5e386cad14b43283acff0f74
 
     SIMHALT             ; halt simulator
 

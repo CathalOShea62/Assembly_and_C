@@ -1,6 +1,10 @@
 00001000 Starting Address
 Assembler used: EASy68K Editor/Assembler v5.16.01
+<<<<<<< HEAD
 Created On: 28/01/2025 12:01:56
+=======
+Created On: 28/01/2025 10:53:03
+>>>>>>> 4ef804491a6f008d5e386cad14b43283acff0f74
 
 00001000                             1      ORG    $1000
 00001000                             2  START:
