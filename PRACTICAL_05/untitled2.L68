@@ -1,0 +1,56 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 11/02/2025 11:41:34
+
+00001000                             1      ORG    $1000
+00001000                             2  START:                  ; first instruction of program
+00001000                             3  
+00001000                             4      
+Line 5 ERROR: Invalid opcode
+00001000                             5  ORG $1000
+00001000                             6  START:
+Line 7 ERROR: Invalid syntax
+00001000                             7  LEA PLAYER_POSITION, A1 LEA ENEMY POSITION, A2
+Line 8 ERROR: Invalid syntax
+00001000                             8  MOVE.B #50, D1
+Line 9 ERROR: Invalid syntax
+00001000                             9  MOVE.B #0, D2
+00001000  B242                      10  COLLISION_CHECK: CMP D2, D1
+Line 11 ERROR: Invalid opcode
+00001002                            11  BLT NEXT MOVE BEQ COLLISION
+00001002                            12  NEXT_MOVE:
+Line 13 ERROR: Invalid syntax
+00001002                            13  ADD.B #1, D2
+Line 14 ERROR: Invalid opcode
+00001002                            14  BRA COLLISION_CHECK
+00001002                            15  COLLISION:
+Line 16 ERROR: Invalid opcode
+00001002                            16  BRA GAME OVER
+00001002                            17  GAME_OVER:
+00001002                            18  SIMHALT
+00001002= 0A 0F                     19  PLAYER_POSITION: DC.B 10, 15 ENEMY POSITION: DC.B 50, 55
+00001004                            20  END
+Line 21 ERROR: Symbol defined more than once
+00001004                            21  START
+00001004                            22  
+00001004  FFFF FFFF                 23      SIMHALT             ; halt simulator
+00001008                            24  
+00001008                            25  * Put variables and constants here
+00001008                            26  
+00001008                            27      END    START        ; last line of source
+
+9 errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+COLLISION           1002
+COLLISION_CHECK     1000
+END                 1004
+GAME_OVER           1002
+NEXT_MOVE           1002
+PLAYER_POSITION     1002
+SIMHALT             1002
+START               1000
