@@ -1,0 +1,54 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 04/03/2025 11:32:28
+
+00001000                             1      ORG    $1000
+00001000                             2                  
+00001000                             3  START:
+00001000  2F3C 00001038              4          MOVE.L  #HEALTH, -(SP)  ; Push address of HEALTH onto stack
+00001006  4EB9 00001014              5          JSR     GAME_LOOP       ; Jump to GAME_LOOP subroutine
+0000100C  6100 0010                  6          BSR     HEADS_UP_DISPLAY ; Branch to HEADS_UP_DISPLAY
+00001010  6000 002F                  7          BRA     END             ; Branch to END (missing label, define if needed)
+00001014                             8  
+00001014                             9  GAME_LOOP:
+00001014  226F 0004                 10          MOVEA.L 4(SP), A1       ; Load address from stack into A1
+00001018  0411 000A                 11          SUB.B   #10, (A1)       ; Subtract 10 from HEALTH
+0000101C  4E75                      12          RTS                     ; Return
+0000101E                            13  
+0000101E                            14  HEADS_UP_DISPLAY:
+0000101E  43F9 00001039             15          LEA     MESSAGE, A1     ; Load address of MESSAGE into A1
+00001024  103C 000E                 16          MOVE.B  #14, D0         ; Set trap code for printing string
+00001028  4E4F                      17          TRAP    #15             ; System call to display MESSAGE
+0000102A                            18  
+0000102A  1239 00001038             19          MOVE.B  HEALTH, D1      ; Load HEALTH value into D1
+00001030  103C 0003                 20          MOVE.B  #3, D0          ; Set trap code for printing number
+00001034  4E4F                      21          TRAP    #15             ; System call to display HEALTH
+00001036  4E75                      22          RTS                     ; Return
+00001038                            23  
+00001038                            24  HEALTH: 
+00001038= 64                        25          DC.B    100             ; Define HEALTH with initial value 100
+00001039                            26  
+00001039                            27  MESSAGE: 
+00001039= 48 65 61 6C 74 68 ...     28          DC.B    'Health:', 0    ; Define MESSAGE string (NULL-terminated)
+00001041                            29  
+00001041                            30  END:
+00001042  4E72 0A8C                 31      STOP    #2700
+00001046  FFFF FFFF                 32      SIMHALT             ; halt simulator
+0000104A                            33  
+0000104A                            34  * Put variables and constants here
+0000104A                            35  
+0000104A                            36      END    START        ; last line of source
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+END                 1041
+GAME_LOOP           1014
+HEADS_UP_DISPLAY    101E
+HEALTH              1038
+MESSAGE             1039
+START               1000

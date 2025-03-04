@@ -1,0 +1,59 @@
+00001000 Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 04/03/2025 11:36:34
+
+00001000                             1          ORG     $1000
+00001000                             2  
+00001000                             3  START:
+00001000  2EBC 0000104E              4          MOVE.L  #HEALTH, (SP)     ; Note position in stack
+00001006  103C 000E                  5          MOVE.B  #14, D0
+0000100A  123C 000E                  6          MOVE.B  #14, D1
+0000100E  2E80                       7          MOVE.L  D0, (SP)          ; Player X
+00001010  2E81                       8          MOVE.L  D1, (SP)          ; Enemy X
+00001012                             9          
+00001012  4EB9 00001020             10          JSR     GAME_LOOP
+00001018  6100 0022                 11          BSR     HEADS_UP_DISPLAY
+0000101C  6000 002C                 12          BRA     END_GAME
+00001020                            13  
+00001020                            14  GAME_LOOP:
+00001020  222F 0004                 15          MOVE.L  4(SP), D1         ; Note depth in stack
+00001024  202F 0008                 16          MOVE.L  8(SP), D0         ; Note depth in stack
+00001028  B240                      17          CMP     D0, D1
+0000102A  6700 0006                 18          BEQ     DAMAGE
+0000102E  6000 000A                 19          BRA     NO_DAMAGE
+00001032                            20  
+00001032                            21  DAMAGE:
+00001032  226F 000C                 22          MOVEA.L 12(SP), A1        ; Note depth in stack
+00001036  0411 000A                 23          SUB.B   #10, (A1)
+0000103A                            24  
+0000103A                            25  NO_DAMAGE:
+0000103A  4E75                      26          RTS
+0000103C                            27  
+0000103C                            28  HEADS_UP_DISPLAY:
+0000103C  1239 0000104E             29          MOVE.B  HEALTH, D1
+00001042  103C 0003                 30          MOVE.B  #3, D0
+00001046  4E4F                      31          TRAP    #15
+00001048  4E75                      32          RTS
+0000104A                            33  
+0000104A                            34  END_GAME:
+0000104A  FFFF FFFF                 35          SIMHALT                   ; Halt simulator
+0000104E                            36  
+0000104E                            37  HEALTH: 
+0000104E= BC                        38          DC.B    188               ; Define initial health value
+0000104F                            39  
+0000104F                            40          END     START              ; Program end
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+DAMAGE              1032
+END_GAME            104A
+GAME_LOOP           1020
+HEADS_UP_DISPLAY    103C
+HEALTH              104E
+NO_DAMAGE           103A
+START               1000
